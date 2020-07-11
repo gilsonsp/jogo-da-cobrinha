@@ -4,14 +4,15 @@ let box = 32; // 32px será de cada quadradinho.
 let snake = [];
 snake[0] = {
    x: 8 * box,
-   y: 8* box
+   y: 8 * box
 }
 
 let direction = "right";
 
+
 function criarBG(){
     context.fillStyle = "lightgreen"; //fillStyle trabalha com o estilo do canvas.
-    context.fillRect(0, 0, 16 * box, 16 * box);// fillRect desenha o retângulo onde acontecerá o jogo. O fillRect trabalha com 4 parâmetros. Posição de X, Y, Altura e Largura.
+context.fillRect(0, 0, 16 * box, 16 * box);// fillRect desenha o retângulo onde acontecerá o jogo. O fillRect trabalha com 4 parâmetros. Posição de X, Y, Altura e Largura.
 }
 
 function criarCobrinha(){
@@ -21,7 +22,22 @@ for(i=0; i < snake.length; i++){
 }
 }
 
+document.addEventListener('keydown', update); // keydown é um evento de clique do teclado.
+
+function update(event){
+ if(event.keyCode == 37 && direction != "right") direction = "left";
+ if(event.keyCode == 38 && direction != "down") direction = "up";
+ if(event.keyCode == 39 && direction != "left") direction = "right";
+ if(event.keyCode == 40 && direction != "up") direction = "down";
+
+}
+
 function iniciarJogo(){
+ if(snake[0].x > 15 * box && direction == "right") snake[0].x = 0;
+ if(snake[0].x < 0 && direction == "left") snake[0].x = 16 * box;
+ if(snake[0].y > 15 * box && direction == "down") snake[0].y = 0;
+ if(snake[0].y < 0 && direction == "up") snake[0].y = 16 * box;
+
     criarBG();
     criarCobrinha();
 
