@@ -7,6 +7,8 @@ snake[0] = {
    y: 8* box
 }
 
+let direction = "right";
+
 function criarBG(){
     context.fillStyle = "lightgreen"; //fillStyle trabalha com o estilo do canvas.
     context.fillRect(0, 0, 16 * box, 16 * box);// fillRect desenha o retângulo onde acontecerá o jogo. O fillRect trabalha com 4 parâmetros. Posição de X, Y, Altura e Largura.
@@ -19,5 +21,27 @@ for(i=0; i < snake.length; i++){
 }
 }
 
-criarBG();
-criarCobrinha();
+function iniciarJogo(){
+    criarBG();
+    criarCobrinha();
+
+    let snakeX = snake[0].x;
+    let snakeY = snake[0].y;
+
+    if(direction == "right") snakeX += box;
+    if(direction == "left") snakeX -= box;
+    if(direction == "up") snakeY -= box;
+    if(direction == "down") snakeY += box;
+
+    snake.pop();
+
+    let newHead = {
+        x: snakeX,
+        y: snakeY
+    }
+
+    snake.unshift(newHead);
+}
+
+let jogo = setInterval(iniciarJogo, 100);
+
