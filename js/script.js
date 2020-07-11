@@ -9,6 +9,11 @@ snake[0] = {
 
 let direction = "right";
 
+let food = {
+  x: Math.floor(Math.random() * 15 + 1) * box,
+  y: Math.floor(Math.random() * 15 + 1) * box
+}
+
 
 function criarBG(){
     context.fillStyle = "lightgreen"; //fillStyle trabalha com o estilo do canvas.
@@ -20,6 +25,11 @@ for(i=0; i < snake.length; i++){
     context.fillStyle = "green";
     context.fillRect(snake[i].x, snake[i].y, box, box);
 }
+}
+
+function drawFood(){
+    context.fillStyle = "red";
+    context.fillRect(food.x, food.y, box, box);
 }
 
 document.addEventListener('keydown', update); // keydown é um evento de clique do teclado.
@@ -40,6 +50,7 @@ function iniciarJogo(){
 
     criarBG();
     criarCobrinha();
+    drawFood()
 
     let snakeX = snake[0].x;
     let snakeY = snake[0].y;
